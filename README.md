@@ -9,7 +9,7 @@ A lightweight ONVIF Discovery and Client library.
 
 ```csharp
 var account = new Account("camera_ip", "camera_username", "camera_password");
-var camera = Camera.Creace(account, ex =>
+var camera = Camera.Create(account, ex =>
 {
     // exception
 });
