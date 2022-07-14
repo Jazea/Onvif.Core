@@ -1,4 +1,6 @@
 ﻿using Onvif.Core.Client.Common;
+using DateTime = Onvif.Core.Client.Common.DateTime;
+using TimeZone = Onvif.Core.Client.Common.TimeZone;
 
 namespace Onvif.Core.Client.Device
 {
