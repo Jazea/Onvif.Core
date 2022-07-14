@@ -1,14 +1,13 @@
-﻿using Onvif.Core.Client;
-using Onvif.Core.Client.Common;
+﻿using Onvif.Core.Client.Common;
 using Onvif.Core.Client.Imaging;
 using Onvif.Core.Client.Media;
 using Onvif.Core.Client.Ptz;
 using System;
 using System.Collections.Generic;
-using System.ServiceModel;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace Onvif.Core.Client
+namespace Onvif.Core.Client.Camera
 {
     public class Camera
     {
@@ -57,6 +56,26 @@ namespace Onvif.Core.Client
             {
                 //var device = await OnvifClientFactory.CreateDeviceClientAsync(account.Host, account.UserName, account.Password);
                 var response = await Media.GetProfilesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                exception?.Invoke(ex);
+                return false;
+            }
+        }
+
+        public async Task<bool> Testing(Action<Exception> exception, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                //var device = await OnvifClientFactory.CreateDeviceClientAsync(account.Host, account.UserName, account.Password);
+
+                var task = await Task.Run(async () =>
+                    await Media.GetProfilesAsync(), cancellationToken: cancellationToken);
+
+                var profiles = task.Profiles;
+
                 return true;
             }
             catch (Exception ex)

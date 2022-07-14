@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace TestProject1
+namespace Onvif.Core.Test
 {
     public class UnitTest1
     {

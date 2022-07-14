@@ -1,12 +1,11 @@
 ﻿using Onvif.Core.Client.Common;
-using System;
 using System.Threading.Tasks;
 
-namespace Onvif.Core.Client
+namespace Onvif.Core.Client.Camera
 {
     public static class CameraExtensions
     {
-        public static async Task<bool> FocusAsync(this Camera camera, FocusMove focusMove)
+        public static async Task<bool> FocusAsync(this Client.Camera.Camera camera, FocusMove focusMove)
         {
             if (camera != null)
             {
@@ -41,7 +40,7 @@ namespace Onvif.Core.Client
             return false;
         }
 
-        public static async Task<bool> MoveAsync(this Camera camera, MoveType moveType, PTZVector vector, PTZSpeed speed, int timeout)
+        public static async Task<bool> MoveAsync(this Client.Camera.Camera camera, MoveType moveType, PTZVector vector, PTZSpeed speed, int timeout)
         {
             if (camera != null)
             {

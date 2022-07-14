@@ -50,7 +50,7 @@ namespace Onvif.Core.Client.Media
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ConfigurationEntity))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(DeviceEntity))]
-        System.Threading.Tasks.Task<Onvif.Core.Client.Media.GetProfilesResponse> GetProfilesAsync(Onvif.Core.Client.Media.GetProfilesRequest request);
+        System.Threading.Tasks.Task<GetProfilesResponse> GetProfilesAsync(GetProfilesRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.onvif.org/ver10/media/wsdl/AddVideoEncoderConfiguration", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -1664,15 +1664,15 @@ namespace Onvif.Core.Client.Media
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<Onvif.Core.Client.Media.GetProfilesResponse> Onvif.Core.Client.Media.Media.GetProfilesAsync(Onvif.Core.Client.Media.GetProfilesRequest request)
+        System.Threading.Tasks.Task<GetProfilesResponse> Onvif.Core.Client.Media.Media.GetProfilesAsync(GetProfilesRequest request)
         {
-            return base.Channel.GetProfilesAsync(request);
+            return Channel.GetProfilesAsync(request);
         }
         
-        public System.Threading.Tasks.Task<Onvif.Core.Client.Media.GetProfilesResponse> GetProfilesAsync()
+        public System.Threading.Tasks.Task<GetProfilesResponse> GetProfilesAsync()
         {
-            Onvif.Core.Client.Media.GetProfilesRequest inValue = new Onvif.Core.Client.Media.GetProfilesRequest();
-            return ((Onvif.Core.Client.Media.Media)(this)).GetProfilesAsync(inValue);
+            GetProfilesRequest inValue = new GetProfilesRequest();
+            return ((Media)(this)).GetProfilesAsync(inValue);
         }
         
         public System.Threading.Tasks.Task AddVideoEncoderConfigurationAsync(string ProfileToken, string ConfigurationToken)
