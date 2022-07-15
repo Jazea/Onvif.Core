@@ -37,7 +37,7 @@ namespace Onvif.Core.Client.Imaging
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.onvif.org/ver20/imaging/wsdl/FocusStop", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task StopAsync(string VideoSourceToken);
+        System.Threading.Tasks.Task StopAsync(string videoSourceToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.onvif.org/ver20/imaging/wsdl/GetStatus", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -119,29 +119,29 @@ namespace Onvif.Core.Client.Imaging
             return base.Channel.GetServiceCapabilitiesAsync();
         }
         
-        public System.Threading.Tasks.Task<ImagingSettings20> GetImagingSettingsAsync(string VideoSourceToken)
+        public System.Threading.Tasks.Task<ImagingSettings20> GetImagingSettingsAsync(string videoSourceToken)
         {
-            return base.Channel.GetImagingSettingsAsync(VideoSourceToken);
+            return base.Channel.GetImagingSettingsAsync(videoSourceToken);
         }
         
-        public System.Threading.Tasks.Task SetImagingSettingsAsync(string VideoSourceToken, ImagingSettings20 ImagingSettings, bool ForcePersistence)
+        public System.Threading.Tasks.Task SetImagingSettingsAsync(string videoSourceToken, ImagingSettings20 imagingSettings, bool forcePersistence)
         {
-            return base.Channel.SetImagingSettingsAsync(VideoSourceToken, ImagingSettings, ForcePersistence);
+            return base.Channel.SetImagingSettingsAsync(videoSourceToken, imagingSettings, forcePersistence);
         }
         
-        public System.Threading.Tasks.Task<ImagingOptions20> GetOptionsAsync(string VideoSourceToken)
+        public System.Threading.Tasks.Task<ImagingOptions20> GetOptionsAsync(string videoSourceToken)
         {
-            return base.Channel.GetOptionsAsync(VideoSourceToken);
+            return base.Channel.GetOptionsAsync(videoSourceToken);
         }
         
-        public System.Threading.Tasks.Task MoveAsync(string VideoSourceToken, FocusMove Focus)
+        public System.Threading.Tasks.Task MoveAsync(string videoSourceToken, FocusMove focus)
         {
-            return base.Channel.MoveAsync(VideoSourceToken, Focus);
+            return base.Channel.MoveAsync(videoSourceToken, focus);
         }
         
-        public System.Threading.Tasks.Task<MoveOptions20> GetMoveOptionsAsync(string VideoSourceToken)
+        public System.Threading.Tasks.Task<MoveOptions20> GetMoveOptionsAsync(string videoSourceToken)
         {
-            return base.Channel.GetMoveOptionsAsync(VideoSourceToken);
+            return base.Channel.GetMoveOptionsAsync(videoSourceToken);
         }
         
         public System.Threading.Tasks.Task StopAsync(string VideoSourceToken)
