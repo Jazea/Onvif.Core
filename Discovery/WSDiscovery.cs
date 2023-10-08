@@ -17,6 +17,9 @@ namespace Onvif.Core.Discovery
 {
     public class WSDiscovery : IWSDiscovery
     {
+        private static readonly Regex _regexModel = new Regex("(?<=hardware/).*?(?= )", RegexOptions.Compiled);
+        private static readonly Regex _regexName = new Regex("(?<=name/).*?(?= )", RegexOptions.Compiled);
+
         public Task<IEnumerable<DiscoveryDevice>> Discover(int timeout,
             CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -123,12 +126,12 @@ namespace Onvif.Core.Discovery
 
         string ParseModelFromScopes(string scopes)
         {
-            return Regex.Match(scopes, "(?<=hardware/).*?(?= )").Value;
+            return _regexModel.Match(scopes).Value;
         }
 
         string ParseNameFromScopes(string scopes)
         {
-            return Regex.Match(scopes, "(?<=name/).*?(?= )").Value;
+            return _regexName.Match(scopes).Value;
         }
     }
 }
