@@ -52,6 +52,7 @@ namespace Onvif.Core.Discovery
             finally
             {
                 client.Close();
+                client.Dispose();
             }
             if (cancellationToken.IsCancellationRequested)
             {
