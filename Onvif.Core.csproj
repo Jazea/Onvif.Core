@@ -13,6 +13,7 @@
     <AssemblyVersion>2.2.2.0</AssemblyVersion>
     <PackageProjectUrl>https://github.com/Jazea/Onvif.Core</PackageProjectUrl>
     <PackageTags>onvif camera ptz</PackageTags>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
