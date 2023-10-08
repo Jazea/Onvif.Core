@@ -33,7 +33,7 @@ namespace Onvif.Core.Discovery
 			cancellation = new CancellationTokenSource ();
 			try {
 				while (isRunning) {
-					var devicesDiscovered = await wsDiscovery.Discover (Constants.WS_TIMEOUT);
+					var devicesDiscovered = await wsDiscovery.Discover (Constants.WS_TIMEOUT).ConfigureAwait(false);
 					SyncDiscoveryDevices (devicesDiscovered);
 				}
 			} catch (OperationCanceledException) {

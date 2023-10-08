@@ -29,12 +29,12 @@ namespace Onvif.Core.Discovery.Common
 
 		public async Task<int> SendAsync (byte[] datagram, int bytes, IPEndPoint endPoint)
 		{
-			return await client.SendAsync (datagram, bytes, endPoint);
+			return await client.SendAsync (datagram, bytes, endPoint).ConfigureAwait(false);
 		}
 
 		public async Task<UdpReceiveResult> ReceiveAsync ()
 		{
-			return await client.ReceiveAsync ();
+			return await client.ReceiveAsync ().ConfigureAwait(false);
 		}
 
 		public void Close ()

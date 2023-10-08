@@ -33,7 +33,7 @@ namespace Onvif.Core.Discovery
             var isRunning = false;
             var responses = new List<UdpReceiveResult>();
 
-            await SendProbe(client);
+            await SendProbe(client).ConfigureAwait(false);
             try
             {
                 isRunning = true;
@@ -44,7 +44,7 @@ namespace Onvif.Core.Discovery
                     {
                         break;
                     }
-                    var response = await client.ReceiveAsync().WithCancellation(cts.Token).WithCancellation(cancellationToken);
+                    var response = await client.ReceiveAsync().WithCancellation(cts.Token).WithCancellation(cancellationToken).ConfigureAwait(false);
                     responses.Add(response);
                 }
             }
@@ -69,7 +69,7 @@ namespace Onvif.Core.Discovery
         {
             var message = WSProbeMessageBuilder.NewProbeMessage();
             var multicastEndpoint = new IPEndPoint(IPAddress.Parse(Constants.WS_MULTICAST_ADDRESS), Constants.WS_MULTICAST_PORT);
-            await client.SendAsync(message, message.Length, multicastEndpoint);
+            await client.SendAsync(message, message.Length, multicastEndpoint).ConfigureAwait(false);
         }
 
         IEnumerable<DiscoveryDevice> ProcessResponses(IEnumerable<UdpReceiveResult> responses)
