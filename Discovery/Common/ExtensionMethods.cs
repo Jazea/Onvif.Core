@@ -13,11 +13,11 @@ namespace Onvif.Core.Discovery.Common
 		{
 			var tcs = new TaskCompletionSource<bool> ();
 			using (cancellationToken.Register (s => ((TaskCompletionSource<bool>)s).TrySetResult (true), tcs)) {
-				if (task != await Task.WhenAny (task, tcs.Task)) {
+				if (task != await Task.WhenAny (task, tcs.Task).ConfigureAwait(false)) {
 					throw new OperationCanceledException (cancellationToken);
 				}
 			}
-			return await task;
+			return await task.ConfigureAwait(false);
 		}
 	}
 }

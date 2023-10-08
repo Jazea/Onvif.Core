@@ -56,7 +56,7 @@ namespace Onvif.Core.Client
             try
             {
                 //var device = await OnvifClientFactory.CreateDeviceClientAsync(account.Host, account.UserName, account.Password);
-                var response = await Media.GetProfilesAsync();
+                var response = await Media.GetProfilesAsync().ConfigureAwait(false);
                 return true;
             }
             catch (Exception ex)

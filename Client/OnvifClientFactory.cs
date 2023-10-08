@@ -35,7 +35,7 @@ namespace Onvif.Core.Client
 
         public static async Task<DeviceClient> CreateDeviceClientAsync(string host, string username, string password)
         {
-            return await CreateDeviceClientAsync(new Uri($"http://{host}/onvif/device_service"), username, password);
+            return await CreateDeviceClientAsync(new Uri($"http://{host}/onvif/device_service"), username, password).ConfigureAwait(false);
         }
 
         public static async Task<DeviceClient> CreateDeviceClientAsync(Uri uri, string username, string password)
@@ -43,14 +43,14 @@ namespace Onvif.Core.Client
             var binding = CreateBinding();
             var endpoint = new EndpointAddress(uri);
             var device = new DeviceClient(binding, endpoint);
-            var time_shift = await GetDeviceTimeShift(device);
+            var time_shift = await GetDeviceTimeShift(device).ConfigureAwait(false);
 
             device = new DeviceClient(binding, endpoint);
             device.ChannelFactory.Endpoint.EndpointBehaviors.Clear();
             device.ChannelFactory.Endpoint.EndpointBehaviors.Add(new SoapSecurityHeaderBehavior(username, password, time_shift));
 
             // Connectivity Test
-            await device.OpenAsync();
+            await device.OpenAsync().ConfigureAwait(false);
 
             return device;
         }
@@ -58,16 +58,16 @@ namespace Onvif.Core.Client
         public static async Task<MediaClient> CreateMediaClientAsync(string host, string username, string password)
         {
             var binding = CreateBinding();
-            var device = await CreateDeviceClientAsync(host, username, password);
-            var caps = await device.GetCapabilitiesAsync(new CapabilityCategory[] { CapabilityCategory.Media });
+            var device = await CreateDeviceClientAsync(host, username, password).ConfigureAwait(false);
+            var caps = await device.GetCapabilitiesAsync(new CapabilityCategory[] { CapabilityCategory.Media }).ConfigureAwait(false);
             var media = new MediaClient(binding, new EndpointAddress(new Uri(caps.Capabilities.Media.XAddr)));
 
-            var time_shift = await GetDeviceTimeShift(device);
+            var time_shift = await GetDeviceTimeShift(device).ConfigureAwait(false);
             media.ChannelFactory.Endpoint.EndpointBehaviors.Clear();
             media.ChannelFactory.Endpoint.EndpointBehaviors.Add(new SoapSecurityHeaderBehavior(username, password, time_shift));
 
             // Connectivity Test
-            await media.OpenAsync();
+            await media.OpenAsync().ConfigureAwait(false);
 
             return media;
         }
@@ -75,16 +75,16 @@ namespace Onvif.Core.Client
         public static async Task<PTZClient> CreatePTZClientAsync(string host, string username, string password)
         {
             var binding = CreateBinding();
-            var device = await CreateDeviceClientAsync(host, username, password);
-            var caps = await device.GetCapabilitiesAsync(new CapabilityCategory[] { CapabilityCategory.PTZ });
+            var device = await CreateDeviceClientAsync(host, username, password).ConfigureAwait(false);
+            var caps = await device.GetCapabilitiesAsync(new CapabilityCategory[] { CapabilityCategory.PTZ }).ConfigureAwait(false);
             var ptz = new PTZClient(binding, new EndpointAddress(new Uri(caps.Capabilities.PTZ.XAddr)));
 
-            var time_shift = await GetDeviceTimeShift(device);
+            var time_shift = await GetDeviceTimeShift(device).ConfigureAwait(false);
             ptz.ChannelFactory.Endpoint.EndpointBehaviors.Clear();
             ptz.ChannelFactory.Endpoint.EndpointBehaviors.Add(new SoapSecurityHeaderBehavior(username, password, time_shift));
 
             // Connectivity Test
-            await ptz.OpenAsync();
+            await ptz.OpenAsync().ConfigureAwait(false);
 
             return ptz;
         }
@@ -92,23 +92,23 @@ namespace Onvif.Core.Client
         public static async Task<ImagingClient> CreateImagingClientAsync(string host, string username, string password)
         {
             var binding = CreateBinding();
-            var device = await CreateDeviceClientAsync(host, username, password);
-            var caps = await device.GetCapabilitiesAsync(new CapabilityCategory[] { CapabilityCategory.Imaging });
+            var device = await CreateDeviceClientAsync(host, username, password).ConfigureAwait(false);
+            var caps = await device.GetCapabilitiesAsync(new CapabilityCategory[] { CapabilityCategory.Imaging }).ConfigureAwait(false);
             var imaging = new ImagingClient(binding, new EndpointAddress(new Uri(caps.Capabilities.Imaging.XAddr)));
 
-            var time_shift = await GetDeviceTimeShift(device);
+            var time_shift = await GetDeviceTimeShift(device).ConfigureAwait(false);
             imaging.ChannelFactory.Endpoint.EndpointBehaviors.Clear();
             imaging.ChannelFactory.Endpoint.EndpointBehaviors.Add(new SoapSecurityHeaderBehavior(username, password, time_shift));
 
             // Connectivity Test
-            await imaging.OpenAsync();
+            await imaging.OpenAsync().ConfigureAwait(false);
 
             return imaging;
         }
 
         public static async Task<TimeSpan> GetDeviceTimeShift(this DeviceClient device)
         {
-            var utc = (await device.GetSystemDateAndTimeAsync()).UTCDateTime;
+            var utc = (await device.GetSystemDateAndTimeAsync().ConfigureAwait(false)).UTCDateTime;
             var dt = new System.DateTime(utc.Date.Year, utc.Date.Month, utc.Date.Day,
                               utc.Time.Hour, utc.Time.Minute, utc.Time.Second);
             return dt - System.DateTime.UtcNow;
