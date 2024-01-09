@@ -75,6 +75,8 @@ namespace Onvif.Core.Discovery
                 if (response.Buffer != null)
                 {
                     string strResponse = Encoding.UTF8.GetString(response.Buffer);
+                    if (strResponse == string.Empty)
+                        continue;
                     XmlProbeReponse xmlResponse = DeserializeResponse(strResponse);
                     foreach (var device in CreateDevices(xmlResponse, response.RemoteEndPoint))
                     {
