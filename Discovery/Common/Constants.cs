@@ -3,7 +3,7 @@ namespace Onvif.Core.Discovery.Common
 {
     public class Constants
     {
-        public const int WS_TIMEOUT = 5000;
+        public const int WS_TIMEOUT = 15;
         public const string WS_MULTICAST_ADDRESS = "239.255.255.250";
         public const int WS_MULTICAST_PORT = 3702;
         public const string WS_PROBE_MESSAGE =
@@ -31,9 +31,7 @@ xmlns:dn=""http://www.onvif.org/ver10/network/wsdl"">
 <e:Header>
 <w:MessageID>uuid:{0}</w:MessageID>
 <w:To e:mustUnderstand=""true"">urn:schemas-xmlsoap-org:ws:2005:04:discovery</w:To>
-<w:Action
-a:mustUnderstand=""true"">http://schemas.xmlsoap.org/ws/2005/04/discovery/Pr
-obe</w:Action>
+<w:Action e:mustUnderstand=""true"">http://schemas.xmlsoap.org/ws/2005/04/discovery/Probe</w:Action>
 </e:Header>
 <e:Body>
 <d:Probe>
