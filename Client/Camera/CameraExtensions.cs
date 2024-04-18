@@ -17,7 +17,7 @@ namespace Onvif.Core.Client
 
                 if (focus)// && camera.FocusMode != focusMode
                 {
-                    var image_settings = await imaging.GetImagingSettingsAsync(vsource_token);
+                    var image_settings = await imaging.GetImagingSettingsAsync(vsource_token).ConfigureAwait(false);
                     if (image_settings.Focus == null)
                     {
                         image_settings.Focus = new FocusConfiguration20
@@ -25,17 +25,17 @@ namespace Onvif.Core.Client
                             AutoFocusMode = focusMode
                         };
 
-                        await imaging.SetImagingSettingsAsync(vsource_token, image_settings, false);
+                        await imaging.SetImagingSettingsAsync(vsource_token, image_settings, false).ConfigureAwait(false);
                     }
                     else if (image_settings.Focus.AutoFocusMode != focusMode)
                     {
                         image_settings.Focus.AutoFocusMode = focusMode;
-                        await imaging.SetImagingSettingsAsync(vsource_token, image_settings, false);
+                        await imaging.SetImagingSettingsAsync(vsource_token, image_settings, false).ConfigureAwait(false);
                     }
                     camera.FocusMode = focusMode;
                 }
 
-                await imaging.MoveAsync(vsource_token, focusMove);
+                await imaging.MoveAsync(vsource_token, focusMove).ConfigureAwait(false);
                 return true;
             }
             return false;
@@ -50,13 +50,13 @@ namespace Onvif.Core.Client
                 switch (moveType)
                 {
                     case MoveType.Absolute:
-                        await ptz.AbsoluteMoveAsync(profile_token, vector, speed);
+                        await ptz.AbsoluteMoveAsync(profile_token, vector, speed).ConfigureAwait(false);
                         return true;
                     case MoveType.Relative:
-                        await ptz.RelativeMoveAsync(profile_token, vector, speed);
+                        await ptz.RelativeMoveAsync(profile_token, vector, speed).ConfigureAwait(false);
                         return true;
                     case MoveType.Continuous:
-                        await ptz.ContinuousMoveAsync(profile_token, speed, timeout.ToString());
+                        await ptz.ContinuousMoveAsync(profile_token, speed, timeout.ToString()).ConfigureAwait(false);
                         return true;
                     default:
                         break;

@@ -17,6 +17,9 @@ namespace Onvif.Core.Discovery
 {
     public class WSDiscovery : IWSDiscovery
     {
+        private static readonly Regex _regexModel = new Regex("(?<=hardware/).*?(?= )", RegexOptions.Compiled);
+        private static readonly Regex _regexName = new Regex("(?<=name/).*?(?= )", RegexOptions.Compiled);
+
         public Task<IEnumerable<DiscoveryDevice>> Discover(int timeout,
             CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -30,7 +33,7 @@ namespace Onvif.Core.Discovery
             var isRunning = false;
             var responses = new List<UdpReceiveResult>();
 
-            await SendProbe(client);
+            await SendProbe(client).ConfigureAwait(false);
             try
             {
                 isRunning = true;
@@ -41,7 +44,7 @@ namespace Onvif.Core.Discovery
                     {
                         break;
                     }
-                    var response = await client.ReceiveAsync().WithCancellation(cts.Token).WithCancellation(cancellationToken);
+                    var response = await client.ReceiveAsync().WithCancellation(cts.Token).WithCancellation(cancellationToken).ConfigureAwait(false);
                     responses.Add(response);
                 }
             }
@@ -52,6 +55,7 @@ namespace Onvif.Core.Discovery
             finally
             {
                 client.Close();
+                client.Dispose();
             }
             if (cancellationToken.IsCancellationRequested)
             {
@@ -65,7 +69,7 @@ namespace Onvif.Core.Discovery
         {
             var message = WSProbeMessageBuilder.NewProbeMessage();
             var multicastEndpoint = new IPEndPoint(IPAddress.Parse(Constants.WS_MULTICAST_ADDRESS), Constants.WS_MULTICAST_PORT);
-            await client.SendAsync(message, message.Length, multicastEndpoint);
+            await client.SendAsync(message, message.Length, multicastEndpoint).ConfigureAwait(false);
         }
 
         IEnumerable<DiscoveryDevice> ProcessResponses(IEnumerable<UdpReceiveResult> responses)
@@ -122,12 +126,12 @@ namespace Onvif.Core.Discovery
 
         string ParseModelFromScopes(string scopes)
         {
-            return Regex.Match(scopes, "(?<=hardware/).*?(?= )").Value;
+            return _regexModel.Match(scopes).Value;
         }
 
         string ParseNameFromScopes(string scopes)
         {
-            return Regex.Match(scopes, "(?<=name/).*?(?= )").Value;
+            return _regexName.Match(scopes).Value;
         }
     }
 }
