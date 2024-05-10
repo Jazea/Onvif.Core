@@ -19,95 +19,53 @@ namespace Onvif.Core.Discovery.Models
                     Equals(o);
         }
 
-        public bool Equals(DiscoveryDevice other)
+        public bool Equals(DiscoveryDevice o)
         {
-            if (other == null ||
-                Model != other.Model ||
-                Name != other.Name)
+            if (o == null)
             {
                 return false;
             }
-
-            if (Address == null)
+            if (o.Model != Model || o.Name != Name || o.Address?.ToString() != Address?.ToString()
+                || o.Types.Count() != Types.Count() || o.XAdresses.Count() != XAdresses.Count())
             {
-                if (other.Address != null)
+                return false;
+            }
+            for (var i = 0; i < Types.Count(); i++)
+            {
+                if (!Types.ElementAt(i).Equals(o.Types.ElementAt(i)))
                 {
                     return false;
                 }
             }
-            else if (!Address.Equals(other.Address))
+            for (var i = 0; i < XAdresses.Count(); i++)
             {
-                return false;
+                if (!XAdresses.ElementAt(i).Equals(o.XAdresses.ElementAt(i)))
+                {
+                    return false;
+                }
             }
-
-            return SequenceEqualCore(Types, other.Types) &&
-                   SequenceEqualCore(XAdresses, other.XAdresses);
+            return true;
         }
 
         public override int GetHashCode()
         {
-            const int FnvOffsetBias = unchecked((int)2166136261);
-
-            int hash = FnvOffsetBias;
-
-            CombineListHash(ref hash, Types);
-            CombineListHash(ref hash, XAdresses);
-
-            if (Model != null)
+            var hash = 1;
+            if (Types != null)
             {
-                CombineHashCode(ref hash, Model.GetHashCode());
-            }
-
-            if (Name != null)
-            {
-                CombineHashCode(ref hash, Name.GetHashCode());
-            }
-
-            if (Address != null)
-            {
-                CombineHashCode(ref hash, Address.GetHashCode());
-            }
-
-            return hash;
-        }
-
-        private static bool SequenceEqualCore(IEnumerable<string> self, IEnumerable<string> other)
-        {
-            if (self == null)
-            {
-                return other == null;
-            }
-            else if (other == null)
-            {
-                return false;
-            }
-            return self.SequenceEqual(other);
-        }
-
-        private static void CombineListHash(ref int hash, IEnumerable<string> list)
-        {
-            if (list != null)
-            {
-                foreach (string item in list)
+                foreach (var type in Types)
                 {
-                    CombineHashCode(ref hash, item.GetHashCode());
+                    hash += type.GetHashCode();
                 }
             }
-        }
-
-        private static void CombineHashCode(ref int hash, int hashcode)
-        {
-            const int FnvPrime = 16777619;
-
-            unsafe
+            if (XAdresses != null)
             {
-                byte* tempPtr = (byte*)&hashcode;
-                hash = unchecked((hash ^ tempPtr[0]) * FnvPrime);
-                hash = unchecked((hash ^ tempPtr[1]) * FnvPrime);
-                hash = unchecked((hash ^ tempPtr[2]) * FnvPrime);
-                hash = unchecked((hash ^ tempPtr[3]) * FnvPrime);
+                foreach (var address in XAdresses)
+                {
+                    hash += address.GetHashCode();
+                }
             }
+            hash += (Model?.GetHashCode() + Name?.GetHashCode() + Address?.GetHashCode()) ?? 0;
+            return hash;
         }
-
     }
 }

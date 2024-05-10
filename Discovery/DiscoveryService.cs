@@ -49,11 +49,12 @@ namespace Onvif.Core.Discovery
 
 		void SyncDiscoveryDevices (IEnumerable<DiscoveryDevice> syncDevices)
 		{
-			var lostDevices = DiscoveredDevices.Except (syncDevices);
+			var lostDevices = new List<DiscoveryDevice>(DiscoveredDevices.Except(syncDevices));
 			foreach (var lostDevice in lostDevices) {
 				DiscoveredDevices.Remove (lostDevice);
 			}
-			var newDevices = syncDevices.Except (DiscoveredDevices);
+
+			var newDevices = new List<DiscoveryDevice>(syncDevices.Except (DiscoveredDevices));
 			foreach (var newDevice in newDevices) {
 				DiscoveredDevices.Add (newDevice);
 			}
