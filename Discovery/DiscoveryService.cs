@@ -53,7 +53,6 @@ namespace Onvif.Core.Discovery
 			foreach (var lostDevice in lostDevices) {
 				DiscoveredDevices.Remove (lostDevice);
 			}
-
 			var newDevices = new List<DiscoveryDevice>(syncDevices.Except (DiscoveredDevices));
 			foreach (var newDevice in newDevices) {
 				DiscoveredDevices.Add (newDevice);
