@@ -1,6 +1,7 @@
 ﻿using Onvif.Core.Discovery.Common;
 using Onvif.Core.Discovery.Interfaces;
 using Onvif.Core.Discovery.Models;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,19 +22,18 @@ namespace Onvif.Core.Discovery
         private static readonly Regex _regexName = new Regex("(?<=name/).*?(?= )", RegexOptions.Compiled);
 
         public Task<IEnumerable<DiscoveryDevice>> Discover(int timeout,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             return Discover(timeout, new UdpClientWrapper(), cancellationToken);
         }
 
         public async Task<IEnumerable<DiscoveryDevice>> Discover(int Timeout, IUdpClient client,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             var devices = new List<DiscoveryDevice>();
-            var isRunning = false;
             var responses = new List<UdpReceiveResult>();
-
             await SendProbe(client).ConfigureAwait(false);
+            bool isRunning;
             try
             {
                 isRunning = true;
@@ -107,12 +107,14 @@ namespace Onvif.Core.Discovery
         {
             foreach (var probeMatch in response.Body.ProbeMatches)
             {
-                var discoveryDevice = new DiscoveryDevice();
-                discoveryDevice.Address = remoteEndpoint.Address;
-                discoveryDevice.XAdresses = ConvertToList(probeMatch.XAddrs);
-                discoveryDevice.Types = ConvertToList(probeMatch.Types);
-                discoveryDevice.Model = ParseModelFromScopes(probeMatch.Scopes);
-                discoveryDevice.Name = ParseNameFromScopes(probeMatch.Scopes);
+                var discoveryDevice = new DiscoveryDevice
+                {
+                    Address = remoteEndpoint.Address,
+                    XAdresses = ConvertToList(probeMatch.XAddrs),
+                    Types = ConvertToList(probeMatch.Types),
+                    Model = ParseModelFromScopes(probeMatch.Scopes),
+                    Name = ParseNameFromScopes(probeMatch.Scopes)
+                };
                 yield return discoveryDevice;
             }
         }

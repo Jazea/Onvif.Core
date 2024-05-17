@@ -1,4 +1,5 @@
 ﻿using Onvif.Core.Client.Common;
+
 using System;
 
 namespace Onvif.Core.Client
@@ -9,7 +10,7 @@ namespace Onvif.Core.Client
         Relative,
         Continuous
     }
-    public class CameraMoveRequest: Request
+    public class CameraMoveRequest : Request
     {
         public MoveType MoveType { get; set; }
         public PTZVector Vector { get; set; }
