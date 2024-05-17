@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Onvif.Core.Discovery.Common;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -38,7 +40,7 @@ namespace Onvif.Core.Discovery.Models
                 return false;
             }
 
-            if (o.Model != Model || o.Name != Name 
+            if (o.Model != Model || o.Name != Name
                 || o.Types.Count() != Types.Count() || o.XAdresses.Count() != XAdresses.Count())
             {
                 return false;
@@ -62,23 +64,13 @@ namespace Onvif.Core.Discovery.Models
 
         public override int GetHashCode()
         {
-            var hash = 1;
-            if (Types != null)
-            {
-                foreach (var type in Types)
-                {
-                    hash += type.GetHashCode();
-                }
-            }
-            if (XAdresses != null)
-            {
-                foreach (var address in XAdresses)
-                {
-                    hash += address.GetHashCode();
-                }
-            }
-            hash += (Model?.GetHashCode() + Name?.GetHashCode() + Address?.GetHashCode()) ?? 0;
-            return hash;
+            Fnv1aImpl hash = new ();
+            return hash.AppendObjs(Types)
+                       .AppendObjs(XAdresses)
+                       .AppendObj(Model)
+                       .AppendObj(Name)
+                       .AppendObj(Address)
+                       .Hash;
         }
     }
 }
