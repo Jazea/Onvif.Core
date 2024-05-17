@@ -1,5 +1,9 @@
 ﻿using Onvif.Core.Client.Common;
 
+using System;
+using System.Xml;
+using System.Xml.Serialization;
+
 namespace Onvif.Core.Client.Ptz
 {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.3")]
@@ -345,7 +349,9 @@ namespace Onvif.Core.Client.Ptz
     [System.ServiceModel.MessageContractAttribute(WrapperName="ContinuousMove", WrapperNamespace="http://www.onvif.org/ver20/ptz/wsdl", IsWrapped=true)]
     public partial class ContinuousMoveRequest
     {
-        
+        [XmlIgnore]
+        public TimeSpan TimeoutField;
+
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.onvif.org/ver20/ptz/wsdl", Order=0)]
         public string ProfileToken;
         
@@ -354,7 +360,11 @@ namespace Onvif.Core.Client.Ptz
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.onvif.org/ver20/ptz/wsdl", Order=2)]
         [System.Xml.Serialization.XmlElementAttribute(DataType="duration")]
-        public string Timeout;
+        public string Timeout
+        {
+            get => XmlConvert.ToString(TimeoutField);
+            set=> TimeoutField=XmlConvert.ToTimeSpan(value);
+        }
         
         public ContinuousMoveRequest()
         {
