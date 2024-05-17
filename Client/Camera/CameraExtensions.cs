@@ -2,6 +2,7 @@
 
 using System;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Onvif.Core.Client
 {
@@ -42,7 +43,18 @@ namespace Onvif.Core.Client
             return false;
         }
 
+
+        /// <remarks>
+        /// timeout is in millisecond.
+        /// <para>This method is retained for Compatibility.</para>
+        /// </remarks>
+        [Obsolete("Use MoveAsync(Camera, MoveType, PTZVector, PTZSpeed, TimeSpan) instead.")]
         public static async Task<bool> MoveAsync(this Camera camera, MoveType moveType, PTZVector vector, PTZSpeed speed, int timeout)
+        {
+            return await MoveAsync(camera, moveType, vector, speed, TimeSpan.FromMilliseconds(timeout)).ConfigureAwait(false);
+        }
+
+        public static async Task<bool> MoveAsync(this Camera camera, MoveType moveType, PTZVector vector, PTZSpeed speed, TimeSpan timeout)
         {
             if (camera != null)
             {
@@ -57,7 +69,7 @@ namespace Onvif.Core.Client
                         await ptz.RelativeMoveAsync(profile_token, vector, speed).ConfigureAwait(false);
                         return true;
                     case MoveType.Continuous:
-                        await ptz.ContinuousMoveAsync(profile_token, speed, timeout.ToString()).ConfigureAwait(false);
+                        await ptz.ContinuousMoveAsync(profile_token, speed, XmlConvert.ToString(timeout)).ConfigureAwait(false);
                         return true;
                     default:
                         break;
