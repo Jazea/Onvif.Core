@@ -25,7 +25,20 @@ namespace Onvif.Core.Discovery.Models
             {
                 return false;
             }
-            if (o.Model != Model || o.Name != Name || o.Address?.ToString() != Address?.ToString()
+
+            if (Address == null)
+            {
+                if (o.Address != null)
+                {
+                    return false;
+                }
+            }
+            else if (!Address.Equals(o.Address))
+            {
+                return false;
+            }
+
+            if (o.Model != Model || o.Name != Name 
                 || o.Types.Count() != Types.Count() || o.XAdresses.Count() != XAdresses.Count())
             {
                 return false;
