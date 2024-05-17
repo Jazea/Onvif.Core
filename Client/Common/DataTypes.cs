@@ -1,5 +1,9 @@
 using Onvif.Core.Client.Device;
 
+using System;
+using System.Xml;
+using System.Xml.Serialization;
+
 namespace Onvif.Core.Client.Common {
 	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute ("dotnet-svcutil", "1.0.3")]
@@ -3763,8 +3767,8 @@ namespace Onvif.Core.Client.Common {
 	public partial class RelayOutputSettings {
 
 		private RelayMode modeField;
-
-		private string delayTimeField;
+		[XmlIgnore]
+		public TimeSpan DelayTimeField;
 
 		private RelayIdleState idleStateField;
 
@@ -3783,10 +3787,10 @@ namespace Onvif.Core.Client.Common {
 		[System.Xml.Serialization.XmlElementAttribute (DataType = "duration", Order = 1)]
 		public string DelayTime {
 			get {
-				return this.delayTimeField;
+				return XmlConvert.ToString(DelayTimeField);
 			}
 			set {
-				this.delayTimeField = value;
+                DelayTimeField = XmlConvert.ToTimeSpan(value);
 			}
 		}
 
@@ -4843,8 +4847,8 @@ namespace Onvif.Core.Client.Common {
 		private float boundaryOffsetField;
 
 		private bool boundaryOffsetFieldSpecified;
-
-		private string responseTimeField;
+		[XmlIgnore]
+		public TimeSpan ResponseTimeField;
 
 		private IrCutFilterAutoAdjustmentExtension extensionField;
 
@@ -4885,10 +4889,10 @@ namespace Onvif.Core.Client.Common {
 		[System.Xml.Serialization.XmlElementAttribute (DataType = "duration", Order = 2)]
 		public string ResponseTime {
 			get {
-				return this.responseTimeField;
+				return XmlConvert.ToString(ResponseTimeField);
 			}
 			set {
-				this.responseTimeField = value;
+                ResponseTimeField = XmlConvert.ToTimeSpan(value);
 			}
 		}
 
@@ -7360,7 +7364,8 @@ namespace Onvif.Core.Client.Common {
 
 		private string nameField;
 
-		private string tTLField;
+		[XmlIgnore]
+		public TimeSpan TTLField;
 
 		private DynamicDNSInformationExtension extensionField;
 
@@ -7390,10 +7395,10 @@ namespace Onvif.Core.Client.Common {
 		[System.Xml.Serialization.XmlElementAttribute (DataType = "duration", Order = 2)]
 		public string TTL {
 			get {
-				return this.tTLField;
+				return XmlConvert.ToString(TTLField);
 			}
 			set {
-				this.tTLField = value;
+                TTLField = XmlConvert.ToTimeSpan(value);
 			}
 		}
 
@@ -11371,8 +11376,8 @@ namespace Onvif.Core.Client.Common {
 		private bool invalidAfterConnectField;
 
 		private bool invalidAfterRebootField;
-
-		private string timeoutField;
+		[XmlIgnore]
+		public TimeSpan TimeoutField;
 
 		private System.Xml.Linq.XElement [] anyField;
 
@@ -11413,10 +11418,10 @@ namespace Onvif.Core.Client.Common {
 		[System.Xml.Serialization.XmlElementAttribute (DataType = "duration", Order = 3)]
 		public string Timeout {
 			get {
-				return this.timeoutField;
+				return XmlConvert.ToString(TimeoutField);
 			}
 			set {
-				this.timeoutField = value;
+                TimeoutField = XmlConvert.ToTimeSpan(value);
 			}
 		}
 
@@ -13739,8 +13744,8 @@ namespace Onvif.Core.Client.Common {
 		private H264Configuration h264Field;
 
 		private MulticastConfiguration multicastField;
-
-		private string sessionTimeoutField;
+		[XmlIgnore]
+		public TimeSpan SessionTimeoutField;
 
 		private System.Xml.Linq.XElement [] anyField;
 
@@ -13825,10 +13830,10 @@ namespace Onvif.Core.Client.Common {
 		[System.Xml.Serialization.XmlElementAttribute (DataType = "duration", Order = 7)]
 		public string SessionTimeout {
 			get {
-				return this.sessionTimeoutField;
+				return XmlConvert.ToString(SessionTimeoutField);
 			}
 			set {
-				this.sessionTimeoutField = value;
+                SessionTimeoutField = XmlConvert.ToTimeSpan(value);
 			}
 		}
 
@@ -14382,8 +14387,8 @@ namespace Onvif.Core.Client.Common {
 		private string defaultContinuousZoomVelocitySpaceField;
 
 		private PTZSpeed defaultPTZSpeedField;
-
-		private string defaultPTZTimeoutField;
+		[XmlIgnore]
+		public TimeSpan DefaultPTZTimeoutField;
 
 		private PanTiltLimits panTiltLimitsField;
 
@@ -14495,10 +14500,10 @@ namespace Onvif.Core.Client.Common {
 		[System.Xml.Serialization.XmlElementAttribute (DataType = "duration", Order = 8)]
 		public string DefaultPTZTimeout {
 			get {
-				return this.defaultPTZTimeoutField;
+				return XmlConvert.ToString(DefaultPTZTimeoutField);
 			}
 			set {
-				this.defaultPTZTimeoutField = value;
+                DefaultPTZTimeoutField = XmlConvert.ToTimeSpan(value);
 			}
 		}
 
@@ -15053,8 +15058,8 @@ namespace Onvif.Core.Client.Common {
 		private bool analyticsFieldSpecified;
 
 		private MulticastConfiguration multicastField;
-
-		private string sessionTimeoutField;
+		[XmlIgnore]
+		public TimeSpan SessionTimeoutField;
 
 		private System.Xml.Linq.XElement [] anyField;
 
@@ -15127,10 +15132,10 @@ namespace Onvif.Core.Client.Common {
 		[System.Xml.Serialization.XmlElementAttribute (DataType = "duration", Order = 4)]
 		public string SessionTimeout {
 			get {
-				return this.sessionTimeoutField;
+				return XmlConvert.ToString(SessionTimeoutField);
 			}
 			set {
-				this.sessionTimeoutField = value;
+                SessionTimeoutField = XmlConvert.ToTimeSpan(value);
 			}
 		}
 
@@ -15433,8 +15438,8 @@ namespace Onvif.Core.Client.Common {
 		private int sampleRateField;
 
 		private MulticastConfiguration multicastField;
-
-		private string sessionTimeoutField;
+		[XmlIgnore]
+		public TimeSpan SessionTimeoutField;
 
 		private System.Xml.Linq.XElement [] anyField;
 
@@ -15486,10 +15491,10 @@ namespace Onvif.Core.Client.Common {
 		[System.Xml.Serialization.XmlElementAttribute (DataType = "duration", Order = 4)]
 		public string SessionTimeout {
 			get {
-				return this.sessionTimeoutField;
+				return  XmlConvert.ToString(SessionTimeoutField);
 			}
 			set {
-				this.sessionTimeoutField = value;
+                SessionTimeoutField = XmlConvert.ToTimeSpan(value);
 			}
 		}
 
@@ -16662,33 +16667,34 @@ namespace Onvif.Core.Client.Common {
 	[System.Diagnostics.DebuggerStepThroughAttribute ()]
 	[System.Xml.Serialization.XmlTypeAttribute (Namespace = "http://www.onvif.org/ver10/schema")]
 	public partial class DurationRange {
-
-		private string minField;
-
-		private string maxField;
+		[XmlIgnore]
+		public TimeSpan MinField;
+        [XmlIgnore]
+        public TimeSpan MaxField;
 
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute (DataType = "duration", Order = 0)]
 		public string Min {
 			get {
-				return this.minField;
+				return XmlConvert.ToString(MinField);
 			}
 			set {
-				this.minField = value;
-			}
+                MinField = XmlConvert.ToTimeSpan(value);
+            }
 		}
 
 		/// <remarks/>
 		[System.Xml.Serialization.XmlElementAttribute (DataType = "duration", Order = 1)]
-		public string Max {
-			get {
-				return this.maxField;
-			}
-			set {
-				this.maxField = value;
-			}
-		}
-	}
+        public string Max
+        {
+            get {
+                return XmlConvert.ToString(MaxField);
+            }
+            set  {
+                MaxField = XmlConvert.ToTimeSpan(value);
+            }
+        }
+    }
 
 	/// <remarks/>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute ("dotnet-svcutil", "1.0.3")]
@@ -16893,7 +16899,8 @@ namespace Onvif.Core.Client.Common {
 
 		private bool recurringTimeFieldSpecified;
 
-		private string recurringDurationField;
+		[XmlIgnore]
+		public TimeSpan RecurringDurationField;
 
 		private PTZPresetTourDirection directionField;
 
@@ -16931,11 +16938,11 @@ namespace Onvif.Core.Client.Common {
 		[System.Xml.Serialization.XmlElementAttribute (DataType = "duration", Order = 1)]
 		public string RecurringDuration {
 			get {
-				return this.recurringDurationField;
+				return XmlConvert.ToString(RecurringDurationField);
 			}
 			set {
-				this.recurringDurationField = value;
-			}
+				RecurringDurationField = XmlConvert.ToTimeSpan(value); 
+            }
 		}
 
 		/// <remarks/>
@@ -17133,7 +17140,8 @@ namespace Onvif.Core.Client.Common {
 
 		private PTZSpeed speedField;
 
-		private string stayTimeField;
+		[XmlIgnore]
+        public TimeSpan StayTimeField;
 
 		private PTZPresetTourSpotExtension extensionField;
 
@@ -17163,11 +17171,11 @@ namespace Onvif.Core.Client.Common {
 		[System.Xml.Serialization.XmlElementAttribute (DataType = "duration", Order = 2)]
 		public string StayTime {
 			get {
-				return this.stayTimeField;
+				return XmlConvert.ToString(StayTimeField); 
 			}
 			set {
-				this.stayTimeField = value;
-			}
+                StayTimeField = XmlConvert.ToTimeSpan(value);
+            }
 		}
 
 		/// <remarks/>
