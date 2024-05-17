@@ -2039,9 +2039,9 @@ namespace Onvif.Core.Client.Device
     public partial class StartFirmwareUpgradeResponse
     {
         [XmlIgnore]
-        public TimeSpan ExpectedDownTimeField;
-        [XmlIgnore]
         public TimeSpan UploadDelayField;
+        [XmlIgnore]
+        public TimeSpan ExpectedDownTimeField;
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.onvif.org/ver10/device/wsdl", Order = 0)]
         [System.Xml.Serialization.XmlElementAttribute(DataType = "anyURI")]
         public string UploadUri;
