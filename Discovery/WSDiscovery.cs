@@ -4,6 +4,7 @@ using Onvif.Core.Discovery.Models;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -105,17 +106,29 @@ namespace Onvif.Core.Discovery
 
         IEnumerable<DiscoveryDevice> CreateDevices(XmlProbeReponse response, IPEndPoint remoteEndpoint)
         {
+            DiscoveryDevice discoveryDevice;
             foreach (var probeMatch in response.Body.ProbeMatches)
             {
-                var discoveryDevice = new DiscoveryDevice
+                discoveryDevice = null;
+                try
                 {
-                    Address = remoteEndpoint.Address,
-                    XAdresses = ConvertToList(probeMatch.XAddrs),
-                    Types = ConvertToList(probeMatch.Types),
-                    Model = ParseModelFromScopes(probeMatch.Scopes),
-                    Name = ParseNameFromScopes(probeMatch.Scopes)
-                };
-                yield return discoveryDevice;
+                    discoveryDevice = new DiscoveryDevice
+                    {
+                        Address = remoteEndpoint.Address,
+                        XAdresses = ConvertToList(probeMatch.XAddrs),
+                        Types = ConvertToList(probeMatch.Types),
+                        Model = ParseModelFromScopes(probeMatch.Scopes),
+                        Name = ParseNameFromScopes(probeMatch.Scopes)
+                    };
+                }
+                catch (Exception ex)
+                {
+                    Debug.Fail(ex.ToString());
+                }
+                if (discoveryDevice != null)
+                {
+                    yield return discoveryDevice;
+                }
             }
         }
 
