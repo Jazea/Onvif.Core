@@ -19,8 +19,8 @@ namespace Onvif.Core.Discovery
 {
     public class WSDiscovery : IWSDiscovery
     {
-        private static readonly Regex _regexModel = new Regex("(?<=hardware/).*?(?= )", RegexOptions.Compiled);
-        private static readonly Regex _regexName = new Regex("(?<=name/).*?(?= )", RegexOptions.Compiled);
+        private static readonly Regex _regexModel = new("(?<=hardware/).*?(?= )", RegexOptions.Compiled);
+        private static readonly Regex _regexName = new("(?<=name/).*?(?= )", RegexOptions.Compiled);
 
         public Task<IEnumerable<DiscoveryDevice>> Discover(int timeout,
             CancellationToken cancellationToken = default)
@@ -93,15 +93,11 @@ namespace Onvif.Core.Discovery
 
         XmlProbeReponse DeserializeResponse(string xml)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(XmlProbeReponse));
-            XmlReaderSettings settings = new XmlReaderSettings();
-            using (StringReader textReader = new StringReader(xml))
-            {
-                using (XmlReader xmlReader = XmlReader.Create(textReader, settings))
-                {
-                    return (XmlProbeReponse)serializer.Deserialize(xmlReader);
-                }
-            }
+            XmlSerializer serializer = new(typeof(XmlProbeReponse));
+            XmlReaderSettings settings = new();
+            using StringReader textReader = new(xml);
+            using XmlReader xmlReader = XmlReader.Create(textReader, settings);
+            return (XmlProbeReponse)serializer.Deserialize(xmlReader);
         }
 
         IEnumerable<DiscoveryDevice> CreateDevices(XmlProbeReponse response, IPEndPoint remoteEndpoint)

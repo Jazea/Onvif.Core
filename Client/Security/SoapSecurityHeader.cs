@@ -83,10 +83,8 @@ namespace Onvif.Core.Client.Security
             try
             {
                 int strBytesLength = Encoding.ASCII.GetBytes(str, 0, strLength, buffer, nonceLength);
-                using (SHA1 sha1 = SHA1.Create())
-                {
-                    return Convert.ToBase64String(sha1.ComputeHash(buffer, 0, nonceLength + strBytesLength));
-                }
+                using SHA1 sha1 = SHA1.Create();
+                return Convert.ToBase64String(sha1.ComputeHash(buffer, 0, nonceLength + strBytesLength));
             }
             finally
             {
@@ -97,11 +95,9 @@ namespace Onvif.Core.Client.Security
         byte[] GetNonce()
         {
             byte[] nonce = new byte[0x10];
-            using (var generator = new RNGCryptoServiceProvider())
-            {
-                generator.GetBytes(nonce);
-                return nonce;
-            }
+            using var generator = new RNGCryptoServiceProvider();
+            generator.GetBytes(nonce);
+            return nonce;
         }
     }
 }
