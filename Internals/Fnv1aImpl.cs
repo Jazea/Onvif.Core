@@ -56,5 +56,29 @@ namespace Onvif.Core.Internals
                 return this;
             }
         }
+
+        public Fnv1aImpl Append<T>(T[] datas)
+            where T : unmanaged
+        {
+            if (datas == null || datas.Length == 0)
+            {
+                return this;
+            }
+            unsafe
+            {
+                int size = sizeof(T) * datas.Length;
+                fixed (T* pT = datas)
+                {
+                    byte* p = (byte*)&pT;
+                    while (size > 0)
+                    {
+                        --size;
+                        _hash ^= p[size];
+                        _hash *= fnv_prime;
+                    }
+                }
+                return this;
+            }
+        }
     }
 }
