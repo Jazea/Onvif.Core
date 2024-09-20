@@ -49,7 +49,9 @@ namespace Onvif.Core.Client
 
         private Account Account { get; } = account;
 
+#pragma warning disable IDE0060 // 删除未使用的参数
         public async Task<bool> Testing(Account account, Action<Exception> exception)
+#pragma warning restore IDE0060 // 删除未使用的参数
         {
             try
             {
