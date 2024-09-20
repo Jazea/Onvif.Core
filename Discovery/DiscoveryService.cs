@@ -19,7 +19,7 @@ namespace Onvif.Core.Discovery
 
         public DiscoveryService()
         {
-            DiscoveredDevices = new ObservableCollection<DiscoveryDevice>();
+            DiscoveredDevices = [];
             wsDiscovery = new WSDiscovery();
         }
 
