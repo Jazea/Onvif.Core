@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace Onvif.Core.Discovery.Common
+namespace Onvif.Core.Internals
 {
     internal ref struct Fnv1aImpl
     {
@@ -46,12 +46,36 @@ namespace Onvif.Core.Discovery.Common
             unsafe
             {
                 int size = sizeof(T);
-                byte* p = (byte*)(&data);
+                byte* p = (byte*)&data;
                 while (size > 0)
                 {
                     --size;
                     _hash ^= p[size];
                     _hash *= fnv_prime;
+                }
+                return this;
+            }
+        }
+
+        public Fnv1aImpl Append<T>(T[] datas)
+            where T : unmanaged
+        {
+            if (datas == null || datas.Length == 0)
+            {
+                return this;
+            }
+            unsafe
+            {
+                int size = sizeof(T) * datas.Length;
+                fixed (T* pT = datas)
+                {
+                    byte* p = (byte*)&pT;
+                    while (size > 0)
+                    {
+                        --size;
+                        _hash ^= p[size];
+                        _hash *= fnv_prime;
+                    }
                 }
                 return this;
             }

@@ -1,5 +1,4 @@
-﻿using Onvif.Core.Discovery.Common;
-
+﻿using Onvif.Core.Internals;
 using System;
 using System.Collections.Generic;
 using System.Linq;

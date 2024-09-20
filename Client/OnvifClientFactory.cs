@@ -60,7 +60,7 @@ namespace Onvif.Core.Client
         {
             var binding = CreateBinding();
             var device = await CreateDeviceClientAsync(host, username, password).ConfigureAwait(false);
-            var caps = await device.GetCapabilitiesAsync(new CapabilityCategory[] { CapabilityCategory.Media }).ConfigureAwait(false);
+            var caps = await device.GetCapabilitiesAsync([CapabilityCategory.Media]).ConfigureAwait(false);
             var media = new MediaClient(binding, new EndpointAddress(new Uri(caps.Capabilities.Media.XAddr)));
 
             var time_shift = await GetDeviceTimeShift(device).ConfigureAwait(false);
@@ -77,7 +77,7 @@ namespace Onvif.Core.Client
         {
             var binding = CreateBinding();
             var device = await CreateDeviceClientAsync(host, username, password).ConfigureAwait(false);
-            var caps = await device.GetCapabilitiesAsync(new CapabilityCategory[] { CapabilityCategory.PTZ }).ConfigureAwait(false);
+            var caps = await device.GetCapabilitiesAsync([CapabilityCategory.PTZ]).ConfigureAwait(false);
             var ptz = new PTZClient(binding, new EndpointAddress(new Uri(caps.Capabilities.PTZ.XAddr)));
 
             var time_shift = await GetDeviceTimeShift(device).ConfigureAwait(false);
@@ -94,7 +94,7 @@ namespace Onvif.Core.Client
         {
             var binding = CreateBinding();
             var device = await CreateDeviceClientAsync(host, username, password).ConfigureAwait(false);
-            var caps = await device.GetCapabilitiesAsync(new CapabilityCategory[] { CapabilityCategory.Imaging }).ConfigureAwait(false);
+            var caps = await device.GetCapabilitiesAsync([CapabilityCategory.Imaging]).ConfigureAwait(false);
             var imaging = new ImagingClient(binding, new EndpointAddress(new Uri(caps.Capabilities.Imaging.XAddr)));
 
             var time_shift = await GetDeviceTimeShift(device).ConfigureAwait(false);
