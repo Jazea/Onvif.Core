@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.ServiceModel;
 using System.Threading.Tasks;
 
-#pragma warning disable IDE0130 // 命名空间与文件夹结构不匹配
+#pragma warning disable IDE0130 //TODO 命名空间与文件夹结构不匹配
 namespace Onvif.Core.Client
 #pragma warning restore IDE0130 // 命名空间与文件夹结构不匹配
 {
@@ -49,7 +49,7 @@ namespace Onvif.Core.Client
 
         private Account Account { get; } = account;
 
-#pragma warning disable IDE0060 // 删除未使用的参数
+#pragma warning disable IDE0060 // TODO 删除未使用的参数
         public async Task<bool> Testing(Account account, Action<Exception> exception)
 #pragma warning restore IDE0060 // 删除未使用的参数
         {
