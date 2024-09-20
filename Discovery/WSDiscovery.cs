@@ -2,6 +2,7 @@
 using Onvif.Core.Discovery.Interfaces;
 using Onvif.Core.Discovery.Models;
 using Onvif.Core.Internals;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -26,6 +27,18 @@ namespace Onvif.Core.Discovery
             CancellationToken cancellationToken = default)
         {
             return Discover(timeout, new UdpClientWrapper(), cancellationToken);
+        }
+
+        public Task<IEnumerable<DiscoveryDevice>> Discover(int timeout, int port,
+           CancellationToken cancellationToken = default)
+        {
+            return Discover(timeout, new UdpClientWrapper(port), cancellationToken);
+        }
+
+        public Task<IEnumerable<DiscoveryDevice>> Discover(int timeout, string ipAddress, int port,
+            CancellationToken cancellationToken = default)
+        {
+            return Discover(timeout, new UdpClientWrapper(ipAddress, port), cancellationToken);
         }
 
         public async Task<IEnumerable<DiscoveryDevice>> Discover(int Timeout, IUdpClient client,
