@@ -1,7 +1,7 @@
 ﻿using Onvif.Core.Discovery.Common;
 using Onvif.Core.Discovery.Interfaces;
 using Onvif.Core.Discovery.Models;
-
+using Onvif.Core.Internals;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
