@@ -2,9 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Onvif.Core.Discovery.Common
+namespace Onvif.Core.Internals
 {
-    public static class ExtensionMethods
+    internal static class TaskExtensions
     {
         /// <summary>
         /// Used to provide cancellation possibility to any Async Methods returning a Task<T>
