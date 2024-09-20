@@ -1,6 +1,8 @@
 ﻿using Onvif.Core.Discovery.Interfaces;
 
+using System;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 
@@ -14,17 +16,39 @@ namespace Onvif.Core.Discovery.Common
         private readonly UdpClient client;
         private bool _disposedValue;
 
-        public UdpClientWrapper()
+        /// <remarks>
+        /// This ctor. uses port 80 by default.
+        /// </remarks>
+        public UdpClientWrapper() : this(IPAddress.Any, 80)
         {
-            client = new UdpClient
-            {
-                EnableBroadcast = true
-            };
         }
 
-        public UdpClientWrapper(string ipAddress, int port)
+        public UdpClientWrapper(int port) : this(IPAddress.Any, port)
         {
-            client = new UdpClient(new IPEndPoint(IPAddress.Parse(ipAddress), port))
+        }
+
+        public UdpClientWrapper(string ipAddress, int port) : this(IPAddress.Parse(ipAddress), port)
+        {
+        }
+
+        public UdpClientWrapper(IPAddress ipAddress, int port) : this(new IPEndPoint(ipAddress, port))
+        {
+        }
+
+        public UdpClientWrapper(IPEndPoint localEndPoint)
+        {
+            IPGlobalProperties ipProperties = IPGlobalProperties.GetIPGlobalProperties();
+            IPEndPoint[] ipEndPoints = ipProperties.GetActiveTcpListeners();
+            foreach (IPEndPoint item in ipEndPoints)
+            {
+                if (item.AddressFamily == localEndPoint.AddressFamily
+                    && (localEndPoint.Address.Equals(IPAddress.Any) || localEndPoint.Address.Equals(IPAddress.Any) || item.Address.Equals(localEndPoint.Address))
+                    && item.Port == localEndPoint.Port)
+                {
+                    throw new ArgumentException($"Port {localEndPoint.Port}");
+                }
+            }
+            client = new UdpClient(localEndPoint)
             {
                 EnableBroadcast = true
             };
