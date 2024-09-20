@@ -13,30 +13,29 @@ using System.Threading.Tasks;
 namespace Onvif.Core.Client
 #pragma warning restore IDE0130 // 命名空间与文件夹结构不匹配
 {
-    public class Camera
+    public class Camera(Account account)
     {
-        private static IDictionary<string, Camera> Cameras { get; set; } = new Dictionary<string, Camera>();
+        private static IDictionary<Account, Camera> Cameras { get; set; } = new Dictionary<Account, Camera>();
         public static Camera Create(Account account, Action<Exception> exception)
         {
-            var key = $"{account.Host}:{account.UserName}:{account.Password}";
             Camera camera;
             bool usable;
 
-            if (!Cameras.ContainsKey(key))
+            if (!Cameras.ContainsKey(account))
             {
                 camera = new Camera(account);
                 usable = camera.Testing(account, exception).Result;
                 if (usable)
                 {
-                    Cameras.Add(key, camera);
-                    Cameras[key].LastUse = System.DateTime.UtcNow;
+                    Cameras.Add(account, camera);
+                    Cameras[account].LastUse = System.DateTime.UtcNow;
                     //clear...
                 }
                 else
                     return null;
             }
 
-            camera = Cameras[key]; ;
+            camera = Cameras[account]; ;
             usable = camera.Testing(account, exception).Result;
             if (usable)
                 return camera;
@@ -48,11 +47,7 @@ namespace Onvif.Core.Client
 
         public System.DateTime LastUse { get; set; }
 
-        private Account Account { get; }
-        public Camera(Account account)
-        {
-            Account = account;
-        }
+        private Account Account { get; } = account;
 
         public async Task<bool> Testing(Account account, Action<Exception> exception)
         {
@@ -75,7 +70,7 @@ namespace Onvif.Core.Client
         {
             get
             {
-                _ptz = _ptz ?? OnvifClientFactory.CreatePTZClientAsync(Account.Host, Account.UserName, Account.Password).Result;
+                _ptz ??= OnvifClientFactory.CreatePTZClientAsync(Account.Host, Account.UserName, Account.Password).Result;
                 return _ptz;
             }
         }
@@ -86,7 +81,7 @@ namespace Onvif.Core.Client
         {
             get
             {
-                _media = _media ?? OnvifClientFactory.CreateMediaClientAsync(Account.Host, Account.UserName, Account.Password).Result;
+                _media ??= OnvifClientFactory.CreateMediaClientAsync(Account.Host, Account.UserName, Account.Password).Result;
                 return _media;
             }
         }
@@ -97,7 +92,7 @@ namespace Onvif.Core.Client
         {
             get
             {
-                _imaging = _imaging ?? OnvifClientFactory.CreateImagingClientAsync(Account.Host, Account.UserName, Account.Password).Result;
+                _imaging ??= OnvifClientFactory.CreateImagingClientAsync(Account.Host, Account.UserName, Account.Password).Result;
                 return _imaging;
             }
         }
