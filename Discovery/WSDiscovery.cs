@@ -23,6 +23,9 @@ namespace Onvif.Core.Discovery
         private static readonly Regex _regexModel = new("(?<=hardware/).*?(?= )", RegexOptions.Compiled);
         private static readonly Regex _regexName = new("(?<=name/).*?(?= )", RegexOptions.Compiled);
 
+        /// <remarks>
+        /// This method uses 80 port.
+        /// </remarks>
         public Task<IEnumerable<DiscoveryDevice>> Discover(int timeout,
             CancellationToken cancellationToken = default)
         {
