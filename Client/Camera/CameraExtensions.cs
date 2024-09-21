@@ -55,7 +55,7 @@ namespace Onvif.Core.Client.Camera
             return await camera.MoveAsync(moveType, vector, speed, TimeSpan.FromMilliseconds(timeout)).ConfigureAwait(false);
         }
 
-        public static async Task<bool> MoveAsync(this Camera camera, MoveType moveType, PTZVector vector, PTZSpeed speed, TimeSpan timeout)
+        public static async Task<bool> MoveAsync(this Camera camera, MoveType moveType, PTZVector vector, PTZSpeed speed, TimeSpan? timeout)
         {
             if (camera != null)
             {
@@ -70,7 +70,7 @@ namespace Onvif.Core.Client.Camera
                         await ptz.RelativeMoveAsync(profile_token, vector, speed).ConfigureAwait(false);
                         return true;
                     case MoveType.Continuous:
-                        await ptz.ContinuousMoveAsync(profile_token, speed, XmlConvert.ToString(timeout)).ConfigureAwait(false);
+                        await ptz.ContinuousMoveAsync(profile_token, speed, timeout == null ? null : XmlConvert.ToString(timeout.Value)).ConfigureAwait(false);
                         return true;
                     default:
                         break;
