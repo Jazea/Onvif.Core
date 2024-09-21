@@ -5,6 +5,7 @@ using Onvif.Core.Client.Ptz;
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Onvif.Core.Client.Camera
@@ -12,31 +13,37 @@ namespace Onvif.Core.Client.Camera
     public class Camera(Account account)
     {
         private static IDictionary<Account, Camera> Cameras { get; set; } = new Dictionary<Account, Camera>();
+
+        private static readonly object s_Locker = new();
+
         public static Camera Create(Account account, Action<Exception> exception)
         {
-            Camera camera;
+            return CreateAsync(account, exception).Result;
+        }
+
+        public static async Task<Camera> CreateAsync(Account account, Action<Exception> exception)
+        {
             bool usable;
-
-            if (!Cameras.ContainsKey(account))
+            if (!Cameras.TryGetValue(account, out Camera camera))
             {
-                camera = new Camera(account);
-                usable = camera.Testing(exception).Result;
-                if (usable)
+                Monitor.Enter(s_Locker);
+                try
                 {
-                    Cameras.Add(account, camera);
-                    Cameras[account].LastUse = System.DateTime.UtcNow;
-                    //clear...
+                    if (!Cameras.TryGetValue(account, out camera))
+                    {
+                        camera = new Camera(account);
+                        Cameras.Add(account, camera);
+                        camera.LastUse = System.DateTime.UtcNow;
+                    }
                 }
-                else
-                    return null;
+                finally
+                {
+                    Monitor.Exit(s_Locker);
+                }
             }
-
-            camera = Cameras[account]; ;
-            usable = camera.Testing(exception).Result;
-            if (usable)
-                return camera;
-            else
-                return null;
+            usable = await camera.Testing(exception).ConfigureAwait(false);
+            // todo Do we need update LastUse?
+            return usable ? camera : null;
         }
 
         public AutoFocusMode FocusMode { get; set; }
