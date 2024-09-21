@@ -1,12 +1,11 @@
-﻿using Onvif.Core.Client.Common;
+﻿using Onvif.Core.Client.Camera.Requests;
+using Onvif.Core.Client.Common;
 
 using System;
 using System.Threading.Tasks;
 using System.Xml;
 
-#pragma warning disable IDE0130 // 命名空间与文件夹结构不匹配
-namespace Onvif.Core.Client
-#pragma warning restore IDE0130 // 命名空间与文件夹结构不匹配
+namespace Onvif.Core.Client.Camera
 {
     public static class CameraExtensions
     {
@@ -53,7 +52,7 @@ namespace Onvif.Core.Client
         [Obsolete("Use MoveAsync(Camera, MoveType, PTZVector, PTZSpeed, TimeSpan) instead.")]
         public static async Task<bool> MoveAsync(this Camera camera, MoveType moveType, PTZVector vector, PTZSpeed speed, int timeout)
         {
-            return await MoveAsync(camera, moveType, vector, speed, TimeSpan.FromMilliseconds(timeout)).ConfigureAwait(false);
+            return await camera.MoveAsync(moveType, vector, speed, TimeSpan.FromMilliseconds(timeout)).ConfigureAwait(false);
         }
 
         public static async Task<bool> MoveAsync(this Camera camera, MoveType moveType, PTZVector vector, PTZSpeed speed, TimeSpan timeout)

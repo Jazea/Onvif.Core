@@ -1,17 +1,13 @@
-﻿using Onvif.Core.Client;
-using Onvif.Core.Client.Common;
+﻿using Onvif.Core.Client.Common;
 using Onvif.Core.Client.Imaging;
 using Onvif.Core.Client.Media;
 using Onvif.Core.Client.Ptz;
 
 using System;
 using System.Collections.Generic;
-using System.ServiceModel;
 using System.Threading.Tasks;
 
-#pragma warning disable IDE0130 //TODO 命名空间与文件夹结构不匹配
-namespace Onvif.Core.Client
-#pragma warning restore IDE0130 // 命名空间与文件夹结构不匹配
+namespace Onvif.Core.Client.Camera
 {
     public class Camera(Account account)
     {
