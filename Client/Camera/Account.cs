@@ -3,9 +3,7 @@
 using System;
 
 
-#pragma warning disable IDE0130 // 命名空间与文件夹结构不匹配
-namespace Onvif.Core.Client
-#pragma warning restore IDE0130 // 命名空间与文件夹结构不匹配
+namespace Onvif.Core.Client.Camera
 {
     public class Account(string host, string userName, string password) : IEquatable<Account>
     {

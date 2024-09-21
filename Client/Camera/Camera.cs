@@ -1,17 +1,13 @@
-﻿using Onvif.Core.Client;
-using Onvif.Core.Client.Common;
+﻿using Onvif.Core.Client.Common;
 using Onvif.Core.Client.Imaging;
 using Onvif.Core.Client.Media;
 using Onvif.Core.Client.Ptz;
 
 using System;
 using System.Collections.Generic;
-using System.ServiceModel;
 using System.Threading.Tasks;
 
-#pragma warning disable IDE0130 //TODO 命名空间与文件夹结构不匹配
-namespace Onvif.Core.Client
-#pragma warning restore IDE0130 // 命名空间与文件夹结构不匹配
+namespace Onvif.Core.Client.Camera
 {
     public class Camera(Account account)
     {
@@ -24,7 +20,7 @@ namespace Onvif.Core.Client
             if (!Cameras.ContainsKey(account))
             {
                 camera = new Camera(account);
-                usable = camera.Testing(account, exception).Result;
+                usable = camera.Testing(exception).Result;
                 if (usable)
                 {
                     Cameras.Add(account, camera);
@@ -36,7 +32,7 @@ namespace Onvif.Core.Client
             }
 
             camera = Cameras[account]; ;
-            usable = camera.Testing(account, exception).Result;
+            usable = camera.Testing(exception).Result;
             if (usable)
                 return camera;
             else
@@ -49,13 +45,26 @@ namespace Onvif.Core.Client
 
         private Account Account { get; } = account;
 
-#pragma warning disable IDE0060 // TODO 删除未使用的参数
+        [Obsolete("Use Testing(Action<Exception>) instead.")]
         public async Task<bool> Testing(Account account, Action<Exception> exception)
-#pragma warning restore IDE0060 // 删除未使用的参数
         {
             try
             {
                 //var device = await OnvifClientFactory.CreateDeviceClientAsync(account.Host, account.UserName, account.Password);
+                var response = await Media.GetProfilesAsync().ConfigureAwait(false);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                exception?.Invoke(ex);
+                return false;
+            }
+        }
+
+        public async Task<bool> Testing(Action<Exception> exception = null)
+        {
+            try
+            {
                 var response = await Media.GetProfilesAsync().ConfigureAwait(false);
                 return true;
             }
