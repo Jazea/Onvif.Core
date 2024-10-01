@@ -1,4 +1,5 @@
 ﻿using Onvif.Core.Client.Common;
+using Onvif.Core.Internals;
 
 using System;
 using System.Xml;
@@ -1211,7 +1212,7 @@ namespace Onvif.Core.Client.Device
     public partial class SetDynamicDNSRequest
     {
         [XmlIgnore]
-        public TimeSpan TTLField;
+        public TimeSpan? TTLField;
 
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.onvif.org/ver10/device/wsdl", Order = 0)]
         public DynamicDNSType Type;
@@ -1224,19 +1225,19 @@ namespace Onvif.Core.Client.Device
         [System.Xml.Serialization.XmlElementAttribute(DataType = "duration")]
         public string TTL
         {
-            get => XmlConvert.ToString(TTLField);
-            set => TTLField = XmlConvert.ToTimeSpan(value);
+            get => TTLField.ToXmlString();
+            set => NullableTimeSpanExtensions.GetTimeSpanFromString(value);
         }
 
         public SetDynamicDNSRequest()
         {
         }
 
-        public SetDynamicDNSRequest(DynamicDNSType Type, string Name, string TTL)
+        public SetDynamicDNSRequest(DynamicDNSType Type, string Name, TimeSpan? TTL)
         {
             this.Type = Type;
             this.Name = Name;
-            this.TTL = TTL;
+            TTLField = TTL;
         }
     }
 
@@ -2597,12 +2598,12 @@ namespace Onvif.Core.Client.Device
             return base.Channel.SetDynamicDNSAsync(request);
         }
 
-        public System.Threading.Tasks.Task<Onvif.Core.Client.Device.SetDynamicDNSResponse> SetDynamicDNSAsync(DynamicDNSType Type, string Name, string TTL)
+        public System.Threading.Tasks.Task<Onvif.Core.Client.Device.SetDynamicDNSResponse> SetDynamicDNSAsync(DynamicDNSType Type, string Name, TimeSpan? TTL = null)
         {
             Onvif.Core.Client.Device.SetDynamicDNSRequest inValue = new Onvif.Core.Client.Device.SetDynamicDNSRequest();
             inValue.Type = Type;
             inValue.Name = Name;
-            inValue.TTL = TTL;
+            inValue.TTLField = TTL;
             return ((Onvif.Core.Client.Device.Device)(this)).SetDynamicDNSAsync(inValue);
         }
 

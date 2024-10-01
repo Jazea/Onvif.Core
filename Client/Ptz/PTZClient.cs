@@ -1,4 +1,5 @@
 ﻿using Onvif.Core.Client.Common;
+using Onvif.Core.Internals;
 
 using System;
 using System.Xml;
@@ -362,19 +363,19 @@ namespace Onvif.Core.Client.Ptz
         [System.Xml.Serialization.XmlElementAttribute(DataType = "duration")]
         public string Timeout
         {
-            get => TimeoutField == null ? null : XmlConvert.ToString(TimeoutField.Value);
-            set => TimeoutField = value == null ? null : XmlConvert.ToTimeSpan(value);
+            get => TimeoutField.ToXmlString();
+            set => NullableTimeSpanExtensions.GetTimeSpanFromString(value);
         }
 
         public ContinuousMoveRequest()
         {
         }
 
-        public ContinuousMoveRequest(string ProfileToken, PTZSpeed Velocity, string Timeout)
+        public ContinuousMoveRequest(string ProfileToken, PTZSpeed Velocity, TimeSpan? Timeout)
         {
             this.ProfileToken = ProfileToken;
             this.Velocity = Velocity;
-            this.Timeout = Timeout;
+            TimeoutField = Timeout;
         }
     }
 
@@ -585,12 +586,12 @@ namespace Onvif.Core.Client.Ptz
             return base.Channel.ContinuousMoveAsync(request);
         }
 
-        public System.Threading.Tasks.Task<Onvif.Core.Client.Ptz.ContinuousMoveResponse> ContinuousMoveAsync(string ProfileToken, PTZSpeed Velocity, string Timeout)
+        public System.Threading.Tasks.Task<Onvif.Core.Client.Ptz.ContinuousMoveResponse> ContinuousMoveAsync(string ProfileToken, PTZSpeed Velocity, TimeSpan? Timeout)
         {
             Onvif.Core.Client.Ptz.ContinuousMoveRequest inValue = new Onvif.Core.Client.Ptz.ContinuousMoveRequest();
             inValue.ProfileToken = ProfileToken;
             inValue.Velocity = Velocity;
-            inValue.Timeout = Timeout;
+            inValue.TimeoutField = Timeout;
             return ((Onvif.Core.Client.Ptz.PTZ)(this)).ContinuousMoveAsync(inValue);
         }
 
