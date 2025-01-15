@@ -13,6 +13,7 @@ namespace Onvif.Core.Discovery.Models
         public string Model { get; internal set; }
         public string Name { get; internal set; }
         public IPAddress Address { get; internal set; }
+        public string EndpointReferenceAddress { get; internal set; }
 
         public override bool Equals(object obj)
         {
@@ -39,7 +40,7 @@ namespace Onvif.Core.Discovery.Models
                 return false;
             }
 
-            if (o.Model != Model || o.Name != Name
+            if (o.Model != Model || o.Name != Name || o.EndpointReferenceAddress != EndpointReferenceAddress
                 || o.Types.Count() != Types.Count() || o.XAdresses.Count() != XAdresses.Count())
             {
                 return false;
@@ -69,6 +70,7 @@ namespace Onvif.Core.Discovery.Models
                        .AppendObj(Model)
                        .AppendObj(Name)
                        .AppendObj(Address)
+                       .AppendObj(EndpointReferenceAddress)
                        .Hash;
         }
     }

@@ -126,6 +126,7 @@ namespace Onvif.Core.Discovery
                 {
                     discoveryDevice = new DiscoveryDevice
                     {
+                        EndpointReferenceAddress = probeMatch.EndpointReference?.Address,
                         Address = remoteEndpoint.Address,
                         XAdresses = ConvertToList(probeMatch.XAddrs),
                         Types = ConvertToList(probeMatch.Types),
