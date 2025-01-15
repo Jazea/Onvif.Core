@@ -56,6 +56,19 @@ namespace Onvif.Core.Client
             return device;
         }
 
+        public static async Task<DeviceClient> CreatePreAuthDeviceClientAsync(Uri uri)
+        {
+            var binding = CreateBinding();
+            var endpoint = new EndpointAddress(uri);
+            var device = new DeviceClient(binding, endpoint);
+            device.ChannelFactory.Endpoint.EndpointBehaviors.Clear();
+
+            // Connectivity Test
+            await device.OpenAsync().ConfigureAwait(false);
+
+            return device;
+        }
+
         public static async Task<MediaClient> CreateMediaClientAsync(string host, string username, string password)
         {
             var binding = CreateBinding();
