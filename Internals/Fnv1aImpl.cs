@@ -69,7 +69,7 @@ namespace Onvif.Core.Internals
                 int size = sizeof(T) * datas.Length;
                 fixed (T* pT = datas)
                 {
-                    byte* p = (byte*)&pT;
+                    byte* p = (byte*)pT;
                     while (size > 0)
                     {
                         --size;
