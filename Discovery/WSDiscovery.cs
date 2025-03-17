@@ -10,7 +10,6 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
@@ -20,9 +19,6 @@ namespace Onvif.Core.Discovery
 {
     public class WSDiscovery : IWSDiscovery
     {
-        private static readonly Regex _regexModel = new("(?<=hardware/).*?(?= )", RegexOptions.Compiled);
-        private static readonly Regex _regexName = new("(?<=name/).*?(?= )", RegexOptions.Compiled);
-
         /// <remarks>
         /// This method uses 80 port.
         /// </remarks>
@@ -124,13 +120,15 @@ namespace Onvif.Core.Discovery
                 discoveryDevice = null;
                 try
                 {
+                    ScopesParser.Parse(probeMatch.Scopes, out var name, out var model);
+
                     discoveryDevice = new DiscoveryDevice
                     {
                         Address = remoteEndpoint.Address,
                         XAdresses = ConvertToList(probeMatch.XAddrs),
                         Types = ConvertToList(probeMatch.Types),
-                        Model = ParseModelFromScopes(probeMatch.Scopes),
-                        Name = ParseNameFromScopes(probeMatch.Scopes)
+                        Model = model,
+                        Name = name
                     };
                 }
                 catch (Exception ex)
@@ -151,16 +149,6 @@ namespace Onvif.Core.Discovery
             {
                 yield return str.Trim();
             }
-        }
-
-        string ParseModelFromScopes(string scopes)
-        {
-            return _regexModel.Match(scopes).Value;
-        }
-
-        string ParseNameFromScopes(string scopes)
-        {
-            return _regexName.Match(scopes).Value;
         }
     }
 }
