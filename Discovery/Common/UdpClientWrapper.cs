@@ -16,6 +16,12 @@ namespace Onvif.Core.Discovery.Common
         private readonly UdpClient client;
         private bool _disposedValue;
 
+        public short Ttl
+        {
+            get => client.Ttl;
+            set => client.Ttl = value;
+        }
+
         /// <remarks>
         /// This ctor. uses port 80 by default.
         /// </remarks>
