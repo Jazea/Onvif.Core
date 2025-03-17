@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>Jazea.org</Authors>
@@ -22,18 +22,18 @@
   <ItemGroup>
     <None Include="res\icon.png" Pack="true" PackagePath="" />
     <None Include="README.md" Pack="true" PackagePath=""/>
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="8.0.5" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.1" />
+    <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="9.0.1" />
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.4" />
-    <PackageReference Include="System.Buffers" Version="4.5.1" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    <PackageReference Include="System.Buffers" Version="4.6.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.0" />
     <PackageReference Include="System.Security.AccessControl" Version="6.0.1" />
-    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="8.0.0" />
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="8.0.1" />
-    <PackageReference Include="System.ServiceModel.Duplex" Version="4.10.3" />
-    <PackageReference Include="System.ServiceModel.Http" Version="4.10.3" />
-    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.10.3" />
-    <PackageReference Include="System.ServiceModel.Security" Version="4.10.3" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="9.0.1" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.1" />
+    <PackageReference Include="System.ServiceModel.Duplex" Version="6.0.0" />
+    <PackageReference Include="System.ServiceModel.Http" Version="8.1.1" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="8.1.1" />
+    <PackageReference Include="System.ServiceModel.Security" Version="6.0.0" />
   </ItemGroup>
 
 </Project>
