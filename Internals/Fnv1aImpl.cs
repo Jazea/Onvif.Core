@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Onvif.Core.Internals
 {
-    internal ref struct Fnv1aImpl
+    internal struct Fnv1aImpl
     {
         private const uint fnv_prime = 0x01000193;
         private const uint fnv_offset_basis = 0x01000193;
