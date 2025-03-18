@@ -194,7 +194,7 @@ namespace Onvif.Core.Discovery
                             case 12:
                                 if (ch == ':')
                                 {
-                                    name = Uri.UnescapeDataString(scopes[startIndex..(i - 6)]);
+                                    name = Uri.UnescapeDataString(scopes.Substring(startIndex, i - 6 - startIndex));
                                     state = 13;
                                 }
                                 else
@@ -209,7 +209,7 @@ namespace Onvif.Core.Discovery
                             case 57:
                                 if (ch == ':')
                                 {
-                                    name = Uri.UnescapeDataString(scopes[startIndex..(i - 6)]);
+                                    name = Uri.UnescapeDataString(scopes.Substring(startIndex, i - 6 - startIndex));
                                     return true;
                                 }
                                 else
@@ -224,7 +224,7 @@ namespace Onvif.Core.Discovery
                             case 29:///////////////////////////////////////////////////////////////////////
                                 if (ch == ':')
                                 {
-                                    model = Uri.UnescapeDataString(scopes[startIndex..(i - 6)]);
+                                    model = Uri.UnescapeDataString(scopes.Substring(startIndex, i - 6 - startIndex));
                                     return true;
                                 }
                                 else
@@ -239,7 +239,7 @@ namespace Onvif.Core.Discovery
                             case 44://///////////////////////////
                                 if (ch == ':')
                                 {
-                                    model = Uri.UnescapeDataString(scopes[startIndex..(i - 6)]);
+                                    model = Uri.UnescapeDataString(scopes.Substring(startIndex, i - 6 - startIndex));
                                     state = 45;
                                 }
                                 else
