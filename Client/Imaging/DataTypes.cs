@@ -1,146 +1,150 @@
-namespace Onvif.Core.Client.Imaging
+using System.CodeDom.Compiler;
+using System.Diagnostics;
+using System.Xml.Serialization;
+using System.Xml.Linq;
+
+namespace Onvif.Core.Client.Imaging;
+
+/// <remarks/>
+[GeneratedCodeAttribute("dotnet-svcutil", "1.0.3")]
+[DebuggerStepThroughAttribute()]
+[XmlTypeAttribute(Namespace = "http://www.onvif.org/ver20/imaging/wsdl")]
+public partial class Capabilities
 {
+
+    private XElement[] anyField;
+
+    private bool imageStabilizationField;
+
+    private bool imageStabilizationFieldSpecified;
+
+    private bool presetsField;
+
+    private bool presetsFieldSpecified;
+
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.onvif.org/ver20/imaging/wsdl")]
-    public partial class Capabilities
+    [XmlAnyElementAttribute(Order = 0)]
+    public XElement[] Any
     {
-
-        private System.Xml.Linq.XElement[] anyField;
-
-        private bool imageStabilizationField;
-
-        private bool imageStabilizationFieldSpecified;
-
-        private bool presetsField;
-
-        private bool presetsFieldSpecified;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAnyElementAttribute(Order = 0)]
-        public System.Xml.Linq.XElement[] Any
+        get
         {
-            get
-            {
-                return this.anyField;
-            }
-            set
-            {
-                this.anyField = value;
-            }
+            return this.anyField;
         }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public bool ImageStabilization
+        set
         {
-            get
-            {
-                return this.imageStabilizationField;
-            }
-            set
-            {
-                this.imageStabilizationField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool ImageStabilizationSpecified
-        {
-            get
-            {
-                return this.imageStabilizationFieldSpecified;
-            }
-            set
-            {
-                this.imageStabilizationFieldSpecified = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public bool Presets
-        {
-            get
-            {
-                return this.presetsField;
-            }
-            set
-            {
-                this.presetsField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool PresetsSpecified
-        {
-            get
-            {
-                return this.presetsFieldSpecified;
-            }
-            set
-            {
-                this.presetsFieldSpecified = value;
-            }
+            this.anyField = value;
         }
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.3")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.onvif.org/ver20/imaging/wsdl")]
-    public partial class ImagingPreset
+    [XmlAttributeAttribute()]
+    public bool ImageStabilization
     {
-
-        private string nameField;
-
-        private string tokenField;
-
-        private string typeField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order = 0)]
-        public string Name
+        get
         {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
+            return this.imageStabilizationField;
         }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string token
+        set
         {
-            get
-            {
-                return this.tokenField;
-            }
-            set
-            {
-                this.tokenField = value;
-            }
+            this.imageStabilizationField = value;
         }
+    }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string type
+    /// <remarks/>
+    [XmlIgnoreAttribute()]
+    public bool ImageStabilizationSpecified
+    {
+        get
         {
-            get
-            {
-                return this.typeField;
-            }
-            set
-            {
-                this.typeField = value;
-            }
+            return this.imageStabilizationFieldSpecified;
+        }
+        set
+        {
+            this.imageStabilizationFieldSpecified = value;
+        }
+    }
+
+    /// <remarks/>
+    [XmlAttributeAttribute()]
+    public bool Presets
+    {
+        get
+        {
+            return this.presetsField;
+        }
+        set
+        {
+            this.presetsField = value;
+        }
+    }
+
+    /// <remarks/>
+    [XmlIgnoreAttribute()]
+    public bool PresetsSpecified
+    {
+        get
+        {
+            return this.presetsFieldSpecified;
+        }
+        set
+        {
+            this.presetsFieldSpecified = value;
+        }
+    }
+}
+
+/// <remarks/>
+[GeneratedCodeAttribute("dotnet-svcutil", "1.0.3")]
+[DebuggerStepThroughAttribute()]
+[XmlTypeAttribute(Namespace = "http://www.onvif.org/ver20/imaging/wsdl")]
+public partial class ImagingPreset
+{
+
+    private string nameField;
+
+    private string tokenField;
+
+    private string typeField;
+
+    /// <remarks/>
+    [XmlElementAttribute(Order = 0)]
+    public string Name
+    {
+        get
+        {
+            return this.nameField;
+        }
+        set
+        {
+            this.nameField = value;
+        }
+    }
+
+    /// <remarks/>
+    [XmlAttributeAttribute()]
+    public string token
+    {
+        get
+        {
+            return this.tokenField;
+        }
+        set
+        {
+            this.tokenField = value;
+        }
+    }
+
+    /// <remarks/>
+    [XmlAttributeAttribute()]
+    public string type
+    {
+        get
+        {
+            return this.typeField;
+        }
+        set
+        {
+            this.typeField = value;
         }
     }
 }

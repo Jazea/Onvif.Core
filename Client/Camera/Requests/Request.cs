@@ -1,7 +1,6 @@
-﻿namespace Onvif.Core.Client.Camera.Requests
+﻿namespace Onvif.Core.Client.Camera.Requests;
+
+public class Request
 {
-    public class Request
-    {
-        public Account Account { get; set; }
-    }
+    public Account Account { get; set; }
 }

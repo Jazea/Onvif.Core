@@ -1,10 +1,8 @@
 ﻿using Onvif.Core.Client.Common;
 
+namespace Onvif.Core.Client.Camera.Requests;
 
-namespace Onvif.Core.Client.Camera.Requests
+public class CameraFocusRequest : Request
 {
-    public class CameraFocusRequest : Request
-    {
-        public FocusMove FocusMove { get; set; }
-    }
+    public FocusMove FocusMove { get; set; }
 }

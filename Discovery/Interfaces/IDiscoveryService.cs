@@ -1,15 +1,13 @@
-﻿
-using Onvif.Core.Discovery.Models;
+﻿using Onvif.Core.Discovery.Models;
 
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
-namespace Onvif.Core.Discovery.Interfaces
+namespace Onvif.Core.Discovery.Interfaces;
+
+public interface IDiscoveryService
 {
-    public interface IDiscoveryService
-    {
-        ObservableCollection<DiscoveryDevice> DiscoveredDevices { get; }
-        Task Start();
-        void Stop();
-    }
+    ObservableCollection<DiscoveryDevice> DiscoveredDevices { get; }
+    Task Start();
+    void Stop();
 }

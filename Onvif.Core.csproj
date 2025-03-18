@@ -5,12 +5,12 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>Jazea.org</Authors>
-    <Copyright>©2020 Jazea.org</Copyright>
+    <Copyright>©2025 Jazea.org</Copyright>
     <Description>A lightweight ONVIF Discovery and Client library.</Description>
     <PackageIconUrl>https://avatars1.githubusercontent.com/u/12891248</PackageIconUrl>
     <Company>Jazea.org</Company>
-    <Version>2.2.2</Version>
-    <AssemblyVersion>2.2.2.0</AssemblyVersion>
+    <Version>3.0.0</Version>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
     <PackageProjectUrl>https://github.com/Jazea/Onvif.Core</PackageProjectUrl>
     <PackageTags>onvif camera ptz</PackageTags>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
