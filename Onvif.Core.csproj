@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>Jazea.org</Authors>
@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <None Include="res\icon.png" Pack="true" PackagePath="" />
-    <None Include="README.md" Pack="true" PackagePath=""/>
+    <None Include="README.md" Pack="true" PackagePath="" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.1" />
     <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="9.0.1" />
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.4" />
@@ -30,10 +30,8 @@
     <PackageReference Include="System.Security.AccessControl" Version="6.0.1" />
     <PackageReference Include="System.Security.Cryptography.Pkcs" Version="9.0.1" />
     <PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.1" />
-    <PackageReference Include="System.ServiceModel.Duplex" Version="6.0.0" />
     <PackageReference Include="System.ServiceModel.Http" Version="8.1.1" />
     <PackageReference Include="System.ServiceModel.NetTcp" Version="8.1.1" />
-    <PackageReference Include="System.ServiceModel.Security" Version="6.0.0" />
   </ItemGroup>
 
 </Project>
