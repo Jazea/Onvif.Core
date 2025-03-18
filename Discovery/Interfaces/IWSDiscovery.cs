@@ -8,8 +8,12 @@ namespace Onvif.Core.Discovery.Interfaces;
 
 public interface IWSDiscovery
 {
-    Task<IEnumerable<DiscoveryDevice>> Discover(int Timeout,
+    Task<IEnumerable<DiscoveryDevice>> Discover(int timeout,
+      CancellationToken cancellationToken = default);
+    Task<IEnumerable<DiscoveryDevice>> Discover(int timeout, string ipAddress, int port,
         CancellationToken cancellationToken = default);
-    Task<IEnumerable<DiscoveryDevice>> Discover(int Timeout, IUdpClient client,
+    Task<IEnumerable<DiscoveryDevice>> Discover(int timeout, int port,
+       CancellationToken cancellationToken = default);
+    Task<IEnumerable<DiscoveryDevice>> Discover(int timeout, IUdpClient client,
         CancellationToken cancellationToken = default);
 }

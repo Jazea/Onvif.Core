@@ -27,6 +27,31 @@ public class DiscoveryService : IDiscoveryService
 
     public async Task Start()
     {
+        await Start(Constants.WS_TIMEOUT, new UdpClientWrapper());
+    }
+    public async Task Start(int port)
+    {
+        await Start(Constants.WS_TIMEOUT, new UdpClientWrapper(port));
+    }
+
+    public async Task Start(int timeout, int port)
+    {
+        await Start(timeout, new UdpClientWrapper(port));
+    }
+
+    public async Task Start(string ipAddress, int port)
+    {
+        await Start(Constants.WS_TIMEOUT, new UdpClientWrapper(ipAddress, port));
+    }
+
+    public async Task Start(int timeout, string ipAddress, int port)
+    {
+        await Start(timeout, new UdpClientWrapper(ipAddress, port));
+    }
+
+    public async Task Start(int timeout, IUdpClient client,
+      CancellationToken cancellationToken = default)
+    {
         if (isRunning)
         {
             throw new InvalidOperationException("The discovery is already running");
@@ -37,7 +62,7 @@ public class DiscoveryService : IDiscoveryService
         {
             while (isRunning)
             {
-                var devicesDiscovered = await wsDiscovery.Discover(Constants.WS_TIMEOUT).ConfigureAwait(false);
+                var devicesDiscovered = await wsDiscovery.Discover(timeout, client, cancellationToken).ConfigureAwait(false);
                 SyncDiscoveryDevices(devicesDiscovered);
             }
         }
