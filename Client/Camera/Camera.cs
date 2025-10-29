@@ -1,4 +1,5 @@
 ﻿using Onvif.Core.Client.Common;
+using Onvif.Core.Client.Device;
 using Onvif.Core.Client.Imaging;
 using Onvif.Core.Client.Media;
 using Onvif.Core.Client.Ptz;
@@ -79,6 +80,17 @@ public class Camera(Account account)
         {
             exception?.Invoke(ex);
             return false;
+        }
+    }
+    
+
+    private DeviceClient _device;
+    public DeviceClient Device
+    {
+        get
+        {
+            _device ??= OnvifClientFactory.CreateDeviceClientAsync(Account.Host, Account.UserName, Account.Password).Result;
+            return _device;
         }
     }
 
