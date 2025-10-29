@@ -1,12 +1,11 @@
-﻿using Onvif.Core.Client;
-using Onvif.Core.Client.Common;
+﻿using Onvif.Core.Client.Common;
+using Onvif.Core.Client.Device;
 using Onvif.Core.Client.Imaging;
 using Onvif.Core.Client.Media;
 using Onvif.Core.Client.Ptz;
 
 using System;
 using System.Collections.Generic;
-using System.ServiceModel;
 using System.Threading.Tasks;
 
 namespace Onvif.Core.Client
@@ -68,6 +67,16 @@ namespace Onvif.Core.Client
         }
 
 
+        private DeviceClient _device;
+        public DeviceClient Device
+        {
+            get
+            {
+                _device = _device ?? OnvifClientFactory.CreateDeviceClientAsync(Account.Host, Account.UserName, Account.Password).Result;
+                return _device;
+            }
+        }
+        
         private PTZClient _ptz;
         public PTZClient Ptz
         {
