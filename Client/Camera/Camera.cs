@@ -77,6 +77,7 @@ namespace Onvif.Core.Client
             }
         }
         
+        
         private PTZClient _ptz;
         public PTZClient Ptz
         {
