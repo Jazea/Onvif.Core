@@ -1,4 +1,6 @@
-﻿using Onvif.Core.Client.Common;
+﻿#nullable enable
+
+using Onvif.Core.Client.Common;
 using Onvif.Core.Client.Device;
 using Onvif.Core.Client.Imaging;
 using Onvif.Core.Client.Media;
@@ -14,6 +16,15 @@ namespace Onvif.Core.Client;
 
 public static class OnvifClientFactory
 {
+	/// <summary>
+	/// Global configuration for WCF binding timeouts applied to all ONVIF clients created by this factory.
+	/// Can be modified before creating any clients to customize timeout behavior globally.
+	/// 
+	/// When configured, these timeouts override the WCF defaults.
+	/// When null (default), WCF defaults are used (preserves original library behavior).
+	/// </summary>
+	public static OnvifBindingTimeoutConfiguration? BindingTimeoutConfig { get; set; }
+
 	static Binding CreateBinding()
 	{
 		var binding = new CustomBinding();
@@ -30,6 +41,19 @@ public static class OnvifClientFactory
 
 		binding.Elements.Add(textBindingElement);
 		binding.Elements.Add(httpBindingElement);
+
+		// Apply timeout configuration only for values that are explicitly set (non-null)
+		if (BindingTimeoutConfig is not null)
+		{
+			if (BindingTimeoutConfig.OpenTimeout is not null)
+				binding.OpenTimeout = BindingTimeoutConfig.OpenTimeout.Value;
+			if (BindingTimeoutConfig.SendTimeout is not null)
+				binding.SendTimeout = BindingTimeoutConfig.SendTimeout.Value;
+			if (BindingTimeoutConfig.ReceiveTimeout is not null)
+				binding.ReceiveTimeout = BindingTimeoutConfig.ReceiveTimeout.Value;
+			if (BindingTimeoutConfig.CloseTimeout is not null)
+				binding.CloseTimeout = BindingTimeoutConfig.CloseTimeout.Value;
+		}
 
 		return binding;
 	}
