@@ -114,6 +114,11 @@ public class WSDiscovery : IWSDiscovery
 
     IEnumerable<DiscoveryDevice> CreateDevices(XmlProbeReponse response, IPEndPoint remoteEndpoint)
     {
+        if (response?.Body?.ProbeMatches == null)
+        {
+            yield break;
+        }
+
         DiscoveryDevice discoveryDevice;
         foreach (var probeMatch in response.Body.ProbeMatches)
         {
