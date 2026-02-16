@@ -65,6 +65,14 @@ public class WSDiscovery : IWSDiscovery
         {
             isRunning = false;
         }
+        catch (ObjectDisposedException)
+        {
+            isRunning = false;
+        }
+        catch (SocketException)
+        {
+            isRunning = false;
+        }
         finally
         {
             client.Close();
